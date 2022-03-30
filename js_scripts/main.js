@@ -29,22 +29,15 @@ var audioTrack = WaveSurfer.create({
             moveOnSeek: true,
             draw: true
         }),
-        WaveSurfer.regions.create({
-            regionsMinLength: 2,
-            regions: [
-
-            ],
-            dragSelection: {
-                slop: 0
-            }
-        })
+        WaveSurfer.regions.create()
     ]
 });
 
 audioTrack.load("audio/Kendrick Lamar - HUMBLE. (Official Instrumental).mp3");
 
 audioTrack.on('ready', function () {
-    console.log("track loaded")
+    console.log("track loaded");
+
 });
 const playBtn = document.querySelector(".play-btn");
 const stopBtn = document.querySelector(".stop-btn");
@@ -91,3 +84,58 @@ const changeVolume = (volume) => {
 
 
 };
+function saveRegions() {
+    localStorage.regions = JSON.stringify(
+        Object.keys(wavesurfer.regions.list).map(function (id) {
+            let region = wavesurfer.regions.list[id];
+            return {
+                start: region.start,
+                end: region.end,
+                attributes: region.attributes,
+                data: region.data
+            };
+        })
+    );
+}
+function loadRegions(regions) {
+    regions.forEach(function (region) {
+        region.color = randomColor(0.1);
+        wavesurfer.addRegion(region);
+    });
+}
+function randomColor(alpha) {
+    return (
+        'rgba(' +
+        [
+            ~~(Math.random() * 255),
+            ~~(Math.random() * 255),
+            ~~(Math.random() * 255),
+            alpha || 1
+        ] +
+        ')'
+    );
+}
+/*document.querySelector('[data-action="delete-region"]').addEventListener('click', function () {
+    let form = document.forms.edit;
+    let regionId = form.dataset.region;
+    if (regionId) {
+        wavesurfer.regions.list[regionId].remove();
+        form.reset();
+    }
+});*/
+
+function enableEditMode() {
+    // Get the checkbox
+    var checkBox = document.getElementById("edit-mode");
+    // If the checkbox is checked,
+    if (checkBox.checked == true) {
+        audioTrack.enableDragSelection({
+            slop: 5,
+            color:randomColor(0.6)
+        });
+        console.log("add comments enabled");
+    } else {
+        audioTrack.disableDragSelection();
+        console.log("add comments disabled");
+    }
+}

@@ -110,6 +110,9 @@ padding: 10px;
     font-size: 2rem;
     color: var(--second-color);
   }
+  .zoom {
+    display:inline;
+  }
 /* ===== FOOTER =====*/
 
 .footer {
