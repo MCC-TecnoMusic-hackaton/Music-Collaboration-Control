@@ -131,11 +131,18 @@ function enableEditMode() {
     if (checkBox.checked == true) {
         audioTrack.enableDragSelection({
             slop: 5,
-            color:randomColor(0.6)
+            color: randomColor(0.6)
         });
+        changeOptionForRegion(true);
         console.log("add comments enabled");
     } else {
         audioTrack.disableDragSelection();
+        changeOptionForRegion(false);
         console.log("add comments disabled");
     }
 }
+function changeOptionForRegion(bool) {
+    console.log(audioTrack.regions.list)
+    audioTrack.regions.list.forEach(myFunction(bool));
+}
+
