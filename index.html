@@ -41,7 +41,25 @@
          <input type="range" min="0" max="1" step="0.01" value="0.75" class="volume-slider">
       </div>
    </div>
-
+   <h1>Show Audio-select Fields</h1>
+  
+   <h3>
+       Show a AUDIO-select field which allows
+       multiple AUDIO to be chosen:
+   </h3>
+ 
+   <form action="/action_page.php" 
+       enctype="multipart/form-data">
+ 
+       <label for="myfile">upload a track:</label>
+ 
+       <input type="file" id="myfile" 
+           name="myfile" multiple="multiple" />
+         
+       <br /><br />
+     
+       <input type="submit" />
+   </form>
 
    <!--===== FOOTER =====-->
    <footer class="footer">
